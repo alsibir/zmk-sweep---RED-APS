@@ -2,6 +2,9 @@ on: [push, pull_request, workflow_dispatch]
 
 name: Build
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,10 +13,10 @@ jobs:
     name: Build
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Cache west modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         env:
           cache-name: cache-zephyr-modules
         with:
@@ -57,7 +60,7 @@ jobs:
         run: cp build/zephyr/zmk.uf2 cradio_right_nice_nano_v2.uf2
 
       - name: Archive firmware
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: firmware-zmk-sweep
           path: |
